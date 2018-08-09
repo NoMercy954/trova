@@ -25,7 +25,7 @@ class TrovaVivienda(models.Model):
 			
 
 	name = fields.Char(string='Folio Real' , size=150, required=True)
-	folio = fields.Char('Folio' , required=True, help='Este es el Folio', default=_folio_default)
+	folio = fields.Char(string='Folio', required=True, help='Este es el Folio', default=_folio_default)
 	paquete = fields.Many2one('trova.vivienda.paquete',string='Paquete' , size=150, help='Este es el Paquete')
 	subasta = fields.Many2one('trova.vivienda.suba', string='Subasta' , size=150, help='Esta es la Subasta')
 	desarrollo = fields.Many2one('trova.vivienda.desa', string='Desarrollo' , size=150, help='Este es el desarrollo')
@@ -104,6 +104,7 @@ class TrovaVivTitu(models.Model):
 	def onchange_pres(self):
 		if self.presupuesto:			
 			self.asesor = self.presupuesto.user_id.id
+			self.cliente = self.presupuesto.partner_id.id
 			self.folio = self.presupuesto.vivienda.id
 			self.etapas = self.presupuesto.vivienda.etapas
 			if(self.presupuesto.confirmation_date):
@@ -111,12 +112,12 @@ class TrovaVivTitu(models.Model):
 			else:
 				self.confirmventa='Pendiente'
 
-
 	@api.onchange('cliente')
 	def onchange_clien(self):
 		if self.cliente:
 			self.nss = self.cliente.nss
 			self.telefono = self.cliente.phone
+
 
 class TrovaVivDesarollo(models.Model):
 	_name = 'trova.vivienda.desa'
@@ -169,8 +170,7 @@ class TrovaVivSaneamiento(models.Model):
 	mpcarto = fields.Integer(string='Monto de pagado', help='Monto pagado por cartografico')
 	fechacarto = fields.Date(string='Fecha Pago cartografico')
 	mpnumofici = fields.Integer(string='Monto pagado por No. Oficial')
-	fechanumofi = fields.Date(string='Fecha Pago No. Oficial')
-	
+	fechanumofi = fields.Date(string='Fecha Pago No. Oficial')	
 	secretfinan = fields.Char(string='Secretaria de Finanzas')
 	mpsecrefin = fields.Integer(string='Monto a pagar Finanzas')
 	fechasecfin = fields.Date(string='Fecha de pago Finanzas')
@@ -181,11 +181,11 @@ class TrovaVivSaneamiento(models.Model):
 	fechaurba = fields.Date(string='Fecha de pago Junta')
 
 
-	@api.onchange('folio')
+	@api.onchange('folioreal')
 	def onchange_folio(self):
-		if self.folio:
-			self.address = self.folio.address
-			self.estado = self.folio.estado
+		if self.folioreal:
+			self.address = self.folioreal.address
+			self.estado = self.folioreal.estado
 
 class TrovaVivPaq(models.Model):
 	_name = 'trova.vivienda.paquete'
@@ -197,23 +197,27 @@ class TrovaVivPaq(models.Model):
 	subastaprop = fields.Boolean(string='Subasta Propia')
 	compradir = fields.Boolean(string='Compras Directas')
 	prestaserv = fields.Boolean(string='Prestacion de Servicios')
+
 class TrovaVivMuni(models.Model):
 	_name = 'trova.vivienda.muni'
 	_description = 'Pantalla de Municipio'
 
 	name = fields.Char('Nombre' , size=150, required=True)
+
 class TrovaVivSubasta(models.Model):
 	"""docstring for TrovaTitu"""
 	_name = 'trova.vivienda.suba'
 	_description = 'Pantalla de subasta'
 
 	name = fields.Char('Nombre' , size=150, required=True)
+
 class TrovaVivTipoVenta(models.Model):
 	"""docstring for TrovaTitu"""
 	_name = 'trova.vivienda.tipo_venta'
 	_description = 'Pantalla de Tipo de Venta'
 
 	name = fields.Char('Nombre' , size=150, required=True)
+
 class TrovaVivSale(models.Model):
 	"""docstring for TrovaTitu"""
 	_inherit = 'sale.order'
