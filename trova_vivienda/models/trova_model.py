@@ -76,16 +76,15 @@ class TrovaVivTitu(models.Model):
 		return "Titulacion{}".format(text)
 
 
-		
-
 	name = fields.Char('Nombre' , size=150, required=True, default=_name_default)
 	folio = fields.Many2one('trova.vivienda', string='Folio Real', required=True, help='Este es el Folio Real de la vivienda')
-	etapas = fields.Selection([('Disponible','Disponible'),
+	'''etapas = fields.Selection([('Disponible','Disponible'),
 							   ('Invadida','Invadida'),
 							   ('Poravaluo','Por avalúo'),
 							   ('Porfirma','Por firmar'),
 							   ('Firmada','Firmada'),
-							   ('Cancelada','Cancelada')], help='Status',index=True,default='Disponible' )
+							   ('Cancelada','Cancelada')], help='Status',index=True,default='Disponible')'''
+	etapas = fields.Selection(related='folio.etapas', help='Status',index=True,default='Disponible')
 	confirmventa = fields.Char(string='Confirmacion de venta')
 	presupuesto = fields.Many2one('sale.order', string='Presupuestos')
 	asesor = fields.Many2one('res.users',string='Asesor', help='Lista de Asesores')
