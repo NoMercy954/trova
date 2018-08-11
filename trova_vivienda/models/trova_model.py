@@ -29,8 +29,8 @@ class TrovaVivienda(models.Model):
 	paquete = fields.Many2one('trova.vivienda.paquete',string='Paquete' , size=150, help='Este es el Paquete')
 	subasta = fields.Many2one('trova.vivienda.suba', string='Subasta' , size=150, help='Esta es la Subasta')
 	desarrollo = fields.Many2one('trova.vivienda.desa', string='Desarrollo' , size=150, help='Este es el desarrollo')
-	estado =  fields.Many2one('res.country.state',domain="[('country_id.code','=','MX')]", string="Estado", required=True)
-	municipio = fields.Many2one('trova.vivienda.muni', string='Municipio' , size=150, required=True, help='El municipio')
+	estado =  fields.Many2one('res.country.state',domain="[('country_id.code','=','MX')]", string="Estado")
+	municipio = fields.Many2one('trova.vivienda.muni', string='Municipio' , size=150, help='El municipio')
 	address = fields.Char('Direccion' , size=150, required=True, help='Esta es la Direccion')
 	tipo_venta = fields.Many2one('trova.vivienda.tipo_venta', string='Tipo de Venta', help='Cual es el tipo de Venta')
 	recamaras = fields.Integer('Numero de Recamaras',size=150, required=True, help='Este es el No. de Recamaras')
@@ -56,6 +56,14 @@ class TrovaVivienda(models.Model):
 	def _get_amount_to_text(self):
 		self.amount_to_text = amount_to_text.get_amount_to_text(self, self.precioventa, 'MXN')
 
+	
+	@api.onchange('desarrollo')
+	def onchange_clien(self):
+		if self.desarrollo:
+			self.estado = self.desarrollo.estado
+			self.municipio = self.desarrollo.municipio
+
+
 class TrovaVivTitu(models.Model):
 	
 	_name = 'trova.vivienda.titu'
@@ -78,12 +86,6 @@ class TrovaVivTitu(models.Model):
 
 	name = fields.Char('Nombre' , size=150, required=True, default=_name_default)
 	folio = fields.Many2one('trova.vivienda', string='Folio Real', required=True, help='Este es el Folio Real de la vivienda')
-	'''etapas = fields.Selection([('Disponible','Disponible'),
-							   ('Invadida','Invadida'),
-							   ('Poravaluo','Por avalúo'),
-							   ('Porfirma','Por firmar'),
-							   ('Firmada','Firmada'),
-							   ('Cancelada','Cancelada')], help='Status',index=True,default='Disponible')'''
 	etapas = fields.Selection(related='folio.etapas', help='Status',index=True,default='Disponible')
 	confirmventa = fields.Char(string='Confirmacion de venta')
 	presupuesto = fields.Many2one('sale.order', string='Presupuestos')
@@ -125,6 +127,7 @@ class TrovaVivDesarollo(models.Model):
 	name = fields.Char('Nombre' , size=150, required=True)
 	estado =  fields.Many2one('res.country.state',domain="[('country_id.code','=','MX')]", string="Estado", required=True)
 	municipio = fields.Many2one('trova.vivienda.muni',string='Municipio' , size=150, required=True, help='El municipio')
+	
 class TrovaVivSaneamiento(models.Model):
 	_name = 'trova.vivienda.sanea'
 	_description = 'Pantalla de Saneamiento'

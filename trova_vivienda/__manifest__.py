@@ -1,5 +1,5 @@
 {
-    'name': 'Trova_Vivienda',
+    'name': 'Vivienda',
     'version': '1.0',
     'summary': 'Personalizacion de Trova',
     'description': 'Formulario viviendas',

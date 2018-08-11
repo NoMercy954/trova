@@ -41,7 +41,7 @@
             <group name="group_rigth">
                 <field name="desarrollo" />
                 <field name="estado"/> 
-                <field name="municipio" /> 
+                <field name="municipio"/> 
                 <field name="address" />
                 <field name="tipo_venta" />
             </group>                        
