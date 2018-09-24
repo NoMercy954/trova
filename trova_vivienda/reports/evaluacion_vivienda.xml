@@ -19,7 +19,7 @@
                                                 <p align="center">DIRECCION/ID</p>
                                             </td>
                                             <td style="border: 1px solid #00000a; padding: 0cm 0.19cm 0cm 0.2cm;" colspan="4" valign="top" width="456">
-                                                <p align="center"><span t-field="o.folio_titulacion"/> Vivienda <span t-field="o.folio_titulacion.folio"/></p>
+                                                <p align="center"><span t-field="o.folio_vivienda"/> Vivienda <span t-field="o.folio_vivienda"/></p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -213,10 +213,10 @@
                                                 <p align="center"><span style="font-size: small;">Reparacion o resane de puertas de media vida</span></p>
                                             </td>
                                             <td style="border: 1px solid #00000a; padding: 0cm 0.19cm 0cm 0.2cm;" valign="top" width="102">
-                                                <p align="center" t-if="o.rep_puerta == 'e'"><span t-field="o."/></p> 
+                                                <p align="center" t-if="o.rep_puerta == 'e'"><span t-field="o.rep_puerta"/></p> 
                                             </td>
                                             <td style="border: 1px solid #00000a; padding: 0cm 0.19cm 0cm 0.2cm;" valign="top" width="102">
-                                                <p align="center" t-if="o.rep_puerta == 'b'"><span t-field="o."/></p> 
+                                                <p align="center" t-if="o.rep_puerta == 'b'"><span t-field="o.rep_puerta"/></p> 
                                             </td>
                                             <td style="border: 1px solid #00000a; padding: 0cm 0.19cm 0cm 0.2cm;" valign="top" width="101">
                                                 <p align="center" t-if="o.rep_puerta == 'm'"><span t-field="o.rep_puerta"/></p> 
@@ -385,7 +385,7 @@
                                                 <p align="center" t-if="o.inst_electrica == 'b'"><span t-field="o.inst_electrica"/></p> 
                                             </td>
                                             <td style="border: 1px solid #00000a; padding: 0cm 0.19cm 0cm 0.2cm;" valign="top" width="101">
-                                                <p align="center" t-if="o.inst_electrica. == 'm'"><span t-field="o.inst_electrica"/></p> 
+                                                <p align="center" t-if="o.inst_electrica == 'm'"><span t-field="o.inst_electrica"/></p> 
                                             </td>
                                         </tr>
                                         <tr>
