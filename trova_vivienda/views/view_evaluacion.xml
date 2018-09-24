@@ -17,7 +17,7 @@
                     <form string ="Formulario de Evaluacion" version="9.0">
                     	<sheet>
                     			<group name="group">
-                                    <field name="folio_vivienda"/>
+                                    <field name="folio_vivienda" invisible="1"/>
                                         <group name="limpieza" string="Limpieza">
                                              <field name="limpieza_gen" widget="radio" options="{'horizontal': true}" requiered='1'/>
                                              <field name="resanes_danos" widget="radio" options="{'horizontal': true}" requiered='1' />

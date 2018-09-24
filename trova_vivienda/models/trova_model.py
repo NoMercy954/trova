@@ -349,7 +349,7 @@ class TrovaEvaluacion(models.Model):
 	inst_tarja = fields.Selection([('e','Excelente'),
 							   ('b','Bueno'),
 							   ('m','Malo')], string='Instalación y reemplazo de tarja de lavado')
-	Inst_electrica = fields.Selection([('e','Excelente'),
+	inst_electrica = fields.Selection([('e','Excelente'),
 							   ('b','Bueno'),
 							   ('m','Malo')], string='Revisión de instalaciones eléctricas y suministro de energía')
 	compl_items_elect = fields.Selection([('e','Excelente'),

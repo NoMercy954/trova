@@ -385,7 +385,7 @@
                                                 <p align="center" t-if="o.Inst_electrica == 'b'"><span t-field="o.Inst_electrica"/></p> 
                                             </td>
                                             <td style="border: 1px solid #00000a; padding: 0cm 0.19cm 0cm 0.2cm;" valign="top" width="101">
-                                                <p align="center" t-if="oInst_electrica. == 'm'"><span t-field="o.Inst_electrica"/></p> 
+                                                <p align="center" t-if="o.Inst_electrica. == 'm'"><span t-field="o.Inst_electrica"/></p> 
                                             </td>
                                         </tr>
                                         <tr>
