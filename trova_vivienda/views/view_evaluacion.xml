@@ -18,7 +18,7 @@
                     	<sheet>
                     			<group name="group">
                                     <field name="folio_vivienda" invisible="1"/>
-                                    <field name="cliente" />
+                                    <field name="cliente" requiered="1"/>
                                         <group name="limpieza" string="Limpieza">
                                              <field name="limpieza_gen" widget="radio" options="{'horizontal': true}" requiered='1'/>
                                              <field name="resanes_danos" widget="radio" options="{'horizontal': true}" requiered='1' />
