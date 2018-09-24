@@ -283,6 +283,7 @@ class TrovaEvaluacion(models.Model):
 
 	name = fields.Char(string="Evaluacion", default=_name_default)
 	folio_vivienda = fields.Many2one('trova.vivienda',string='Folio Vivienda')
+	cliente = fields.Many2one('res.partner',string='Cliente')
 	limpieza_gen = fields.Selection([('e','Excelente'),
 							   ('b','Bueno'),
 							   ('m','Malo')], string='Limpieza general de interiores')

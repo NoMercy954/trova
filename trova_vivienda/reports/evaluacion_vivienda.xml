@@ -458,12 +458,12 @@
                                                 <p align="center">_________________________</p>
                                             </td>
                                             <td style="border: 1px solid #00000a; padding: 0cm 0.19cm 0cm 0.2cm;" width="279">
-                                                <p align="center">_________________________________</p>
+                                                <p align="center">__________________________</p>
                                             </td>
                                         </tr>
                                         <tr valign="top">
                                             <td style="border: 1px solid #00000a; padding: 0cm 0.19cm 0cm 0.2cm;" width="279">
-                                                <p align="center">Cliente: <span t-field="o.folio_titulacion.cliente"/></p>
+                                                <p align="center">Cliente: <span t-field="o.cliente"/></p>
                                             </td>
                                             <td style="border: 1px solid #00000a; padding: 0cm 0.19cm 0cm 0.2cm;" width="279">
                                                 <p align="center">Habliidator</p>

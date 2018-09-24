@@ -18,6 +18,7 @@
                     	<sheet>
                     			<group name="group">
                                     <field name="folio_vivienda" invisible="1"/>
+                                    <field name="cliente" />
                                         <group name="limpieza" string="Limpieza">
                                              <field name="limpieza_gen" widget="radio" options="{'horizontal': true}" requiered='1'/>
                                              <field name="resanes_danos" widget="radio" options="{'horizontal': true}" requiered='1' />
@@ -55,7 +56,7 @@
                                         <field name="inst_tarja" widget="radio" options="{'horizontal': true}" requiered='1'/>
                                    </group>
                                    <group name="electricidad" string="Instalacion Electrica">
-                                        <field name="Inst_electrica" widget="radio" options="{'horizontal': true}" requiered='1'/>
+                                        <field name="inst_electrica" widget="radio" options="{'horizontal': true}" requiered='1'/>
                                         <field name="compl_items_elect" widget="radio" options="{'horizontal': true}" requiered='1'/>
                                         <field name="cableado_gen" widget="radio" options="{'horizontal': true}" requiered='1'/>
                                    </group>
