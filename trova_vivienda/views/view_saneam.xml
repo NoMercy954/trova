@@ -8,7 +8,6 @@
             		<tree string ="Saneamiento">
              			<field name="name"/>
                   <field name="folioreal" />
-                  <field name="address" />
          			  </tree>      	
      			   </field>
   		  </record>
@@ -22,7 +21,6 @@
             					<group name="group_left">
                           <h2><field name="name" readonly="1"/></h2>
                					  <field name="folioreal" />
-             						  <field name="address" />
                           <field name="estado" />
             					</group>                     
         					</group>

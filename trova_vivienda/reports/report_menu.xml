@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+            string="Datos del clientes"
+            id="report_datos_cliente"
+            model="trova.vivienda.titu"
+            report_type="qweb-pdf"
+            name="trova_vivienda.datos_clientes"
+            file="trova_vivienda.datos_clientes"
+        />
+        <report
+            string="Acta de Recepcion"
+            id="report_acta_recepcion"
+            model="trova.vivienda.titu"
+            report_type="qweb-pdf"
+            name="trova_vivienda.acta_recepcion"
+            file="trova_vivienda.acta_recepcion"
+        />
+
+        <report
+            string="Fraccionamiento"
+            id="report_fraccionamiento"
+            model="trova.vivienda.titu"
+            report_type="qweb-pdf"
+            name="trova_vivienda.fraccionamiento"
+            file="trova_vivienda.fraccionamiento"
+        />
+   
+        <report
+            string="Evaluacion Vivienda"
+            id="report_evaluacion_vivienda"
+            model="trova.vivienda.eva"
+            report_type="qweb-pdf"
+            name="trova_vivienda.evalua_vivienda"
+            file="trova_vivienda.evaluacion_vivienda"
+        />
+
+    </data>
+</odoo>

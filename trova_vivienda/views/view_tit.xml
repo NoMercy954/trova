@@ -12,6 +12,7 @@
          			</tree> 
                 </field>
             </record>
+
             <record id="trova_viv_titulacion_modelo_form" model="ir.ui.view">
                 <field name="name">trova.viv.titulacion.modelo.form</field>
                 <field name="model">trova.vivienda.titu</field>
@@ -37,11 +38,37 @@
                             <field name="cliente" />
                             <field name="nss" />
                             <field name="telefono"/>
-                            <field name="numtaria" />
+                            <field name="notaria" />
                             <field name="numcredifona" />
                             <field name="comentariostit" />
+                            <field name="medio_enterado"/>
                         </group>                  
                     </group>
+
+                    <notebook id="info">
+                            <page name="otra_info" string="Otra Informacion">
+                                <group name="group"> 
+                                  <group name="group_left" string="Pendientes y Mejoras">
+                                      <field name="precio_vivienda"/>                                    
+                                      <field name="precio_mejoras" />
+                                      <field name="fecha_pago_mejoras" />
+                                      <field name="total_pagar"/>
+                                      <field name="enganche_vivienda"/>
+                                      <field name="apartado_vivienda"/>
+                                      <field name="pendientes"/>
+                                      <field name="fecha_concluido"/>
+                                  </group>
+                                  <group name="group_rigth" string="Formato de Pago">
+                                      <field name="tipo_pago"/> 
+                                      <field name="num_pago"/>
+                                      <field name="num_cuenta"/>
+                                      <field name="nombre_banco"/>
+                                      <field name="monto_pago"/>
+                                  </group>                     
+                                </group>
+                            </page>
+                     </notebook>
+
                     </sheet>
                     </form>
                 </field>

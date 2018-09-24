@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="solicitud_compra">
+                <t t-call="web.html_container">
+                    <t t-foreach="docs" t-as="o">
+                        <div class="page">
+                        	<h3>SOLICITUD DE COMPRA</h3>
+                        	<p aling="justify">
+								Medio por el cual me entere del desarrollo: <span t-field="o.medio_enterado"/>
+
+								Esta es una Solicitud de Compra y esta sujeta a la aceptación de los propietarios del inmueble.
+
+								Solicito comprar la casa Ubicada en la calle <span t-field="o.folio.calle"/> con No. Ext <span t-field="o.folio.noext"/>, Mza y Lote <span t-field="o.folio.mz_lote"/>, Colonia <span t-field="o.folio.calle2"/>, en el Municipio de <span t-field="o.folio.municipio"/>, <span t-field="o.folio.estado"/>. <br/>
+								Precio de la casa $<span t-field="o.folio.precioventa"/> , más el precio de mejoras de: <span t-field=""> que se pagará el día <span t-field=""> que da un total de <span t-field=""> , que será pagado en moneda nacional al valor aplicable en la fecha de pago.
+								Enganche total:                                       pesos, apartado:                                       pesos por concepto de depósito en garantía.                       		
+                        	</p>
+                        	<p>
+                        		<strong>EN CASO DE OPERACIONES DE CONTACTO: </strong>el saldo del enganche, equivalente a: <span t-field="">
+                        	</p>
+                        </div>
+                    </t>
+                </t>
+        </template>
+    </data>
+</odoo>                
