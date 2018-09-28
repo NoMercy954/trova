@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="avaluo_vivienda1"> 
+                <t t-call="web.html_container">
+                    <t t-foreach="docs" t-as="o">
+                        <t t-call="web.external_layout">
+                            <div class="page">
+                                <table align="center">
+                                    <tr hight="30%">
+                                        <td width="60%" style="text-align:center;" background-color="#3471f2b">SOLICITUD DE AVALUO INMOBILIARIO Y DICTAMEN TECNICO DE CALIDAD</td>
+                                        <td width="20%" align="left" style="position:relative;"><img src="/trova_vivienda/static/src/img/infonavit.png" style="max-height: 200px; width:111px;"/></td>
+                                    </tr><br/>
+                                    <tr border="1">
+                                        <td >
+                                            <strong>DESTINO DEL CREDITO: </strong> <span t-field="o.destino_credito" />
+                                        </td>
+                                    </tr>
+                                    <br/>
+                                </table>
+                                <br/>
+                                <div align="center">
+                                    <h3 >1. DATOS DE IDENTIFICACION DEL DERECHOHABIENTE</h3>
+                                </div>
+                                <table>
+                                    <tr>
+                                        <td align="center">
+                                            <span t-field="o.nss"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                                                           
+                            </div> <!---     DIV PAGE  -->
+                        </t>
+                    </t>    <!---     FOREACH DOCS  -->
+                </t>
+        </template>
+    </data>
+</odoo>
+

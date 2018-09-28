@@ -29,6 +29,7 @@
                     					<field name="subastaprop"/>
                     					<field name="compradir"/>
                     					<field name="prestaserv"/>
+                                             <field name="comision"/>
                     				</group>
                     			</group>
                     	</sheet>

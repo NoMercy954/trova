@@ -37,12 +37,19 @@ class TrovaVivienda(models.Model):
 	tipo_venta = fields.Many2one('trova.vivienda.tipo_venta', string='Tipo de Venta', help='Cual es el tipo de Venta')
 	recamaras = fields.Integer('Numero de Recamaras',size=150, required=True, help='Este es el No. de Recamaras')
 	fotos = fields.Boolean('Fotos', help='Fotos')
+	cocina = fields.Boolean(string='Cocina', help='Cuenta con cocina?')
+	cocina_precio = fields.Float(string='Precio Cocina', help='Ingresa el costo de la cocina')
 	clg = fields.Boolean('CLG',  help='CLG')
-	aca = fields.Boolean('Avaluo Comercial anterior', help='Avaluo Comercial anterior')
+	clg_precio = fields.Float(string='Precio CLG')
 	piso = fields.Boolean(string='Piso',  help='Piso')
-	proteccion = fields.Boolean('Protecciones',  help='Protecciones')
+	piso_precio = fields.Float(string='Precio del piso')
+	proteccion = fields.Boolean(string='Protecciones',  help='Protecciones')
+	proteccion_precio = fields.Float(string='Precio de proteccion')
 	avalcat = fields.Boolean('Avaluo Catastral',  help='Avaluo Catastral')
-	logo_viv = fields.Binary(string='Logo de encabezado')
+	avalcat_precio = fields.Float(string='Precio del Av. Catastral')
+	aca = fields.Boolean('Avaluo Comercial anterior', help='Avaluo Comercial anterior')
+	aca_precio = fields.Float(string='Precio del Av. Comercial')
+	imagen_viv = fields.Binary(string='Imagen de Vivienda')
 	etapas = fields.Selection([('Disponible','Disponible'),
 							   ('Invadida','Invadida'),
 							   ('Poravaluo','Por avalúo'),
@@ -51,6 +58,8 @@ class TrovaVivienda(models.Model):
 							   ('Cancelada','Cancelada')], help='Status',index=True, default='Disponible')
 	precioventa = fields.Float('Precio de Venta' , required=True, help='Este sera el precio con el que se vendera la vivienda',  obj="res.currency")
 	preciocompra = fields.Float('Precio de Compra' , required=True, help='Este sera el precio con el que se comprara la vivienda',  obj="res.currency")
+	impuestos_derechos = fields.Integer(string='Impuestos y Derechos')
+	gestion_credito = fields.Integer(string='Gestion de Credito')
 	amount_to_text = fields.Char(compute='_get_amount_to_text', string='Monto en Texto', readonly=True,
                                  help='Amount of the invoice in letter', store=True)
 	calle = fields.Char(string='Calle')
@@ -66,6 +75,12 @@ class TrovaVivienda(models.Model):
 	m_const = fields.Char(string='Metros Const')
 	sofol = fields.Char(string='SOFOL')
 	denominacion = fields.Char(string='Denominacion')
+	prototipo = fields.Char(string='Prototipo')
+	fracc = fields.Char(string='Fraccionamiento')
+	prop_vivienda = fields.Many2one('res.partner',string='Propietario de la Vivienda')
+
+
+
 
 	@api.one
 	@api.depends('precioventa')
@@ -126,16 +141,51 @@ class TrovaVivTitu(models.Model):
 	num_cuenta = fields.Char(string='# de Cuenta Bancaria')
 	nombre_banco = fields.Char(string='Nombre Banco')
 	monto_pago = fields.Integer(string='Monto a Pagar')
-	precio_mejoras = fields.Integer(string='Precio de mejoras')
+	precio_mejoras = fields.Integer(string='Precio de mejoras', compute='_total_mejoras')
 	fecha_pago_mejoras = fields.Date(string='Fecha de Pago de mejoras')
-	total_pagar = fields.Float(string='Total a Pagar', readonly=True, compute="_total_vivienda")
+	total_pagar = fields.Float(string='Total a Pagar', compute='_total_vivienda')
 	precio_vivienda = fields.Integer(string='Precio Vivienda')
 	enganche_vivienda = fields.Integer(string='Enganche')
 	apartado_vivienda = fields.Integer(string='Apartado')
+	deposito_quila = fields.Integer(string='Deposito Quila')
+	deposito_infonavit = fields.Integer(string='Deposito Infonavit')
+	pago_cuv = fields.Integer(string='Pago Cuv')
+	deposito_cliente = fields.Integer(string='Deposito Cliente')
+	diferencias  = fields.Integer(string='Diferencias a Favor o Encontra')
+	gestion = fields.Float(string='Gestion')
+
+	cocina = fields.Float(string='Precio Cocina', help='Ingresa el costo de la cocina')
+	clg= fields.Float(string='Precio CLG')
+	piso = fields.Float(string='Precio del piso')
+	proteccion = fields.Float(string='Precio de proteccion')
+	avalcat = fields.Float(string='Precio del Av. Catastral')
+	aca = fields.Float(string='Precio del Av. Comercial')
+
+
+	pago_contado = fields.Boolean(string='Pago de Contado?')
+	fecha_pago_enganche_contado = fields.Date(string='Fecha de pago enganche')
+	pago_credito = fields.Boolean(string='Pago de Credito?')
+	abono_vivienda = fields.Float(string='Abono Vivienda')
+	fecha_limite_abono = fields.Date(string='Fecha limite del Abono')
+	cantidad_mensualidad = fields.Integer(string='No. Mensualidades')
+	mensaulidad_enganche = fields.Float(string='Mensualidad del Enganche')
+	fecha_inicio_pago_enganche = fields.Date(string='Fecha de Inicio de pago enganche')
+	subsidio = fields.Float(string='Subsidio')
+	monto_cuenta_vivienda = fields.Float(string='Monto de la cuenta de Vivienda')
+	acredor_hipotecario = fields.Boolean(string='Acredor Hipotecario')
+	nombre_acredor = fields.Char(string='Nombre del Acredor')
+	rfc_acredor = fields.Char(string='RFC')
+	destino_credito = fields.Selection([('compra','Compra Vivienda'),('contruir','Construir Vivienda'),
+										('mejorar','Ampliar, Remodelar o Mejorar tu vivienda'),('hipoteca','Pagar la Hipoteda de tu vivienda')],)
+
 
 	@api.depends('precio_mejoras','precio_vivienda')
 	def _total_vivienda(self):
-	    self.total_pagar = (int(self.precio_vivienda))+(int(self.precio_mejoras))
+	    self.total_pagar = (float(self.precio_vivienda))+(float(self.precio_mejoras))
+
+	@api.depends('cocina','clg','piso','proteccion','avalcat','aca')
+	def _total_mejoras(self):
+	    self.precio_mejoras = (float(self.cocina)) + (float(self.clg)) + (float(self.piso)) + (float(self.proteccion)) + (float(self.avalcat)) + (float(self.aca))
 
 	
 	@api.onchange('presupuesto')
@@ -156,10 +206,18 @@ class TrovaVivTitu(models.Model):
 		if self.cliente:
 			self.nss = self.cliente.nss
 			self.telefono = self.cliente.phone
+
 	@api.onchange('folio')
 	def onchange_vivienda(self):
 		if self.folio:
 			self.precio_vivienda = self.folio.precioventa
+			self.cocina = self.folio.cocina_precio
+			self.clg = self.folio.clg_precio
+			self.piso = self.folio.piso_precio
+			self.proteccion = self.folio.proteccion_precio
+			self.avalcat = self.folio.avalcat_precio
+			self.aca = self.folio.aca_precio
+
 
 class TrovaVivDesarollo(models.Model):
 	_name = 'trova.vivienda.desa'
@@ -238,6 +296,7 @@ class TrovaVivPaq(models.Model):
 	subastaprop = fields.Boolean(string='Subasta Propia')
 	compradir = fields.Boolean(string='Compras Directas')
 	prestaserv = fields.Boolean(string='Prestacion de Servicios')
+	comision = fields.Float(string='% Comision')
 
 class TrovaVivMuni(models.Model):
 	_name = 'trova.vivienda.muni'
@@ -366,8 +425,6 @@ class TrovaEvaluacion(models.Model):
 							   ('b','Bueno'),
 							   ('m','Malo')], string='Suministro e instalación de materiales para instalaciones hidraulicas')
 
-		
-
 class TrovaVivSale(models.Model):
 	"""docstring for TrovaTitu"""
 	_inherit = 'sale.order'
@@ -390,7 +447,7 @@ class TrovaVivClientes(models.Model):
 
 	fechanac=fields.Date(string='Fecha de Nacimiento')
 	curp = fields.Char(string='CURP', size=18, help='Ingresa tu CURP')
-	esque_credito = fields.Char(string='Esquema de Credito', size=100, help='Escribe tu Esquema de Credito')
+	esque_credito = fields.Char(string='Esquema Credito')
 	nss = fields.Char(string='NSS', help='Ingresa el Numero de Seguro Social',size=11)
 	estado_civil = fields.Selection([('soltero/a','Soltero/a'),
 							   ('casado/a','Casado/a'),
@@ -440,7 +497,8 @@ class TrovaVivClientes(models.Model):
 	prentesco1 = fields.Char(string='Parentesco 1')
 	prentesco2 = fields.Char(string='Parentesco 2')
 	edad = fields.Integer(string='Edad', compute='_compute_age')
-	lugar_nacimiento =fields.Char(string='Lugar de Nacimiento')
+	lugar_nacimiento = fields.Char(string='Lugar de Nacimiento')
+
 
 	@api.multi
 	@api.depends('fechanac')
@@ -472,3 +530,33 @@ class TrovaNotarias(models.Model):
 	@api.depends('estado','municipio')
 	def merge_func(self):
 	    self.notaria = (str(self.estado.name) or '')+','+(str(self.municipio.name) or '')
+
+class TrovaGarantias(models.Model):
+
+	_name = 'trova.vivienda.garantia'
+	_description = 'Lista para Garantias de vivienda'
+
+
+	def _name_default(self):
+		cr = self.env.cr
+		cr.execute('select "id" from "trova_vivienda_garantia" order by "id" desc limit 1')
+		id_returned = cr.fetchone()
+		if id_returned == None:
+			id_returned = (0,)
+		text=''
+		if((max(id_returned)+1)<100):
+			text='00'+str(max(id_returned)+1)
+		else:
+			text=str(max(id_returned)+1)
+		return "Garantia {}".format(text)	
+
+	name = fields.Char(string="Garantias", default=_name_default)
+	cliente = fields.Many2one('res.partner', string='Cliente')
+	folio_vivienda = fields.Many2one('trova.vivienda',string='Folio Vivienda')
+	instal_electric = fields.Boolean(string='Instalacion Electrica')
+	instal_hidraulica = fields.Boolean(string='Instalacion Hidraulica')
+	instal_sanitaria = fields.Boolean(string='Instalacion Sanitaria')
+	acabados = fields.Boolean(string='Acabados')
+	impermeable = fields.Boolean(string="Impermeabilizante")
+	albañilería = fields.Boolean(string='Albañilería')
+

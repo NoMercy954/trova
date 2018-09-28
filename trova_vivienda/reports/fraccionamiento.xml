@@ -146,9 +146,9 @@
                             </tr>                                                                        
                         </table>
                         <br/>
-
-                        <spand align="right">Ciudad de ________________ Jal a ___ de _____________del________ </spand>
-
+                        <div align="right">
+                            <span>Ciudad de Guadalajara, Jal a <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%A %d %B %Y %H:%M')"/></span>
+                        </div>
                         <table style="margin: auto;">
                             <br/>
                             <br/>
@@ -156,12 +156,12 @@
                             <br/>
                             <tr>
                                 <td>
-                                    <spand style="text-align: center;">______________________________</spand>
+                                    <span style="text-align: center;">______________________________</span>
                                     <h5 style="text-align: center;">Atentamente</h5>
                                 </td>
                                 <td width="30%"></td>
                                 <td>
-                                    <spand style="text-align: center;">______________________________</spand>
+                                    <span style="text-align: center;">______________________________</span>
                                     <h5 style="text-align: center;">Recibi la oferta</h5>
                                 </td>
                             </tr>

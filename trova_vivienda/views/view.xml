@@ -23,20 +23,22 @@
           <header><field name="etapas" widget="statusbar" clickable="1" /></header>
         <sheet> 
           <div>
-              <field name="logo_viv" widget="image"/>
+              <field name="imagen_viv" widget="image"/>
           </div>
         <group name="group0"> 
             <group name="group_left">
-
                 <field name="folio" readonly="1"/>
                 <field name="name" />
                 <field name="paquete"/>
                 <field name="subasta" />
+                <field name="prototipo"/>
                 <field name="preciocompra" widget="monetary"/>
                 <field name="precioventa" widget="monetary"/>
+                <field name="tipo_venta" />
             </group>
             <group name="group_rigth">
-                <field name="desarrollo" />                
+                <field name="desarrollo" />
+                <field name="fracc"/>                
                 <field name="calle" />
                 <field name="calle2" />
                 <field name="noext"/>
@@ -45,7 +47,6 @@
                 <field name="cp" />
                 <field name="estado"/> 
                 <field name="municipio"/> 
-                <field name="tipo_venta" />
             </group>                        
         </group>
         
@@ -53,20 +54,30 @@
             <page name="info_vivienda" string="Informacion Vivienda">
                 <group name="group2"> 
                   <group name="group_left">
-                      <field name="recamaras" />
-                      <field name="fotos" />
-                      <field name="clg"/>
-                      <field name="aca" />
-                  </group>
-                  <group name="group_rigth">
-                    <field name="piso" /> 
-                    <field name="proteccion" />
-                    <field name="avalcat" />
+                    <field name="prop_vivienda"/>
+                    <field name="recamaras" />
+                    <field name="fotos" />
                     <field name="tipo_casa"/>
                     <field name="m_sup"/>
                     <field name="m_const"/>
                     <field name="sofol"/>
                     <field name="denominacion"/>
+                  </group>
+                  <group name="group_rigth" string="Mejoras">
+                    <field name="piso"/>
+                      <field name="piso_precio"  attrs="{'invisible': [('piso','=',False)], 'required': [('piso','=',True)]}"/>
+                    <field name="proteccion" />
+                      <field name="proteccion_precio" attrs="{'invisible': [('proteccion','=',False)], 'required': [('proteccion','=',True)]}"/>
+                    <field name="cocina"/>
+                      <field name="cocina_precio"  attrs="{'invisible': [('cocina','=',False)], 'required': [('cocina','=',True)]}"/>
+                    <field name="avalcat" />
+                      <field name="avalcat_precio"  attrs="{'invisible': [('avalcat','=',False)], 'required': [('avalcat','=',True)]}"/>
+                    <field name="aca"/>
+                      <field name="aca_precio"  attrs="{'invisible': [('aca','=',False)], 'required': [('aca','=',True)]}"/>
+                    <field name="clg"/>
+                      <field name="clg_precio"  attrs="{'invisible': [('clg','=',False)], 'required': [('clg','=',True)]}"/>
+                    <field name="impuestos_derechos"/>
+                    <field name="gestion_credito"/>
                   </group>                     
                 </group>
             </page>
@@ -76,6 +87,9 @@
 </field>
 </record>
 
+                               
+                                    
+                            
 <!--  Definimos los eventos -->
 
 <!--  Boton Vivienda -->
@@ -193,6 +207,24 @@
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
        <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+                    
+
+                    <page name="beneficiarios" string="Beneficiarios">
+                            <group name="group"> 
+                                <group name="group_left">
+                                    <field name="name_benef1"/>
+                                    <field name="porcent_benf1"/>
+                                    <field name="prentesco1"/>
+                                </group>
+                                <group name="group_rigth">
+                                    <field name="name_benef2"/> 
+                                    <field name="porcent_benf2"/>
+                                    <field name="prentesco2"/>
+                                </group>                     
+                            </group>
+                    </page>  
+
+
                     <page name="datos_generales" string="Datos Generales">
                             <group name="group"> 
                                 <group name="group_left">
@@ -206,19 +238,19 @@
                                     <field name="nss"/> 
                                     <field name="estado_civil" required="1"/>
                                     <field name="credito_conyu" />
-                                    <field name="name_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
-                                    <field name="regimen_matrimonial" attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
-                                    <field name="rfc_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
-                                    <field name="nss_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
-                                    <field name="calle_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
-                                    <field name="noext_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
-                                    <field name="noint_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
-                                    <field name="tel_casa_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
-                                    <field name="tel_trabajo_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
-                                    <field name="cel_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
-                                    <field name="empr_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
-                                    <field name="antigue_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
-                                    <field name="dept_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
+                                      <field name="name_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
+                                      <field name="regimen_matrimonial" attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
+                                      <field name="rfc_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
+                                      <field name="nss_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
+                                      <field name="calle_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
+                                      <field name="noext_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
+                                      <field name="noint_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
+                                      <field name="tel_casa_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
+                                      <field name="tel_trabajo_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
+                                      <field name="cel_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
+                                      <field name="empr_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
+                                      <field name="antigue_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
+                                      <field name="dept_cony"  attrs="{'invisible': [('credito_conyu','=',False)], 'required': [('credito_conyu','=',True)]}"/>
                                 </group>                     
                             </group>
                     </page>

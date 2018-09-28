@@ -49,7 +49,7 @@
                             <page name="otra_info" string="Otra Informacion">
                                 <group name="group"> 
                                   <group name="group_left" string="Pendientes y Mejoras">
-                                      <field name="precio_vivienda"/>                                    
+                                      <field name="precio_vivienda"/>                            
                                       <field name="precio_mejoras" />
                                       <field name="fecha_pago_mejoras" />
                                       <field name="total_pagar"/>
@@ -67,13 +67,45 @@
                                   </group>                     
                                 </group>
                             </page>
-                     </notebook>
 
+                            <page name="solicitud_compra" string="Solicidud de Compra">
+                                    <group name="group"> 
+                                        <group name="group_left">
+                                            <field name="subsidio"/>
+                                            <field name="monto_cuenta_vivienda"/>
+                                            <field name="pago_contado"/>
+                                            <field name="fecha_pago_enganche_contado" attrs="{'invisible': [('pago_contado','=',False)], 'required': [('pago_contado','=',True)]}" /> 
+                                            <field name="pago_credito"/>
+                                            <field name="fecha_limite_abono" attrs="{'invisible': [('pago_credito','=',False)], 'required': [('pago_credito','=',True)]}" />  
+                                            <field name="cantidad_mensualidad" attrs="{'invisible': [('pago_credito','=',False)], 'required': [('pago_credito','=',True)]}"/>
+                                            <field name="mensaulidad_enganche" attrs="{'invisible': [('pago_credito','=',False)], 'required': [('pago_credito','=',True)]}"/> 
+                                            <field name="fecha_inicio_pago_enganche" attrs="{'invisible': [('pago_credito','=',False)], 'required': [('pago_credito','=',True)]}"/>      
+                                        </group> 
+                                        <group string="Avaluo">
+                                            <field name="subsidio"/>
+                                            <field name="monto_cuenta_vivienda"/>
+                                            <field name="acredor_hipotecario"/>
+                                            <field name="nombre_acredor"/>
+                                            <field name="rfc_acredor"/>
+                                            <field name="destino_credito"/>
+                                        </group>                  
+                                    </group>
+                            </page>
+                     </notebook>
                     </sheet>
                     </form>
                 </field>
             </record>
 	</data>
 </odoo>	
+
+
+
+
+
+
+
+
+
 
 
