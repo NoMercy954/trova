@@ -22,7 +22,8 @@
              'reports/liquidacion_cliente.xml',
              'reports/vivienda_garantia.xml',
              'reports/solicitud_compra.xml',
-             'reports/avaluo_vivienda.xml' 
+             'reports/avaluo_vivienda.xml',
+             'reports/carta_notarial.xml'
             ],
 
     'installable': True,

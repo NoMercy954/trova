@@ -84,12 +84,21 @@
                                         <group string="Avaluo">
                                             <field name="subsidio"/>
                                             <field name="monto_cuenta_vivienda"/>
-                                            <field name="acredor_hipotecario"/>
-                                            <field name="nombre_acredor"/>
-                                            <field name="rfc_acredor"/>
                                             <field name="destino_credito"/>
                                         </group>                  
                                     </group>
+                            </page>
+                            <page name="carta_notarial" string="Carta Notarial">
+                                <group name="group"> 
+                                  <group name="group_left">
+                                      <field name="modelo_escritura"/>                            
+                                      <field name="pago_paculio" />
+                                      <field name="pago_acredor"/>
+                                      <field name="clabe_acredor"/>
+                                      <field name="nombre_banco_acredor"/>
+                                      <field name="importe_hipoteca"/>
+                                  </group>                   
+                                </group>
                             </page>
                      </notebook>
                     </sheet>

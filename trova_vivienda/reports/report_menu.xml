@@ -79,6 +79,14 @@
             file="trova_vivienda.avaluo_vivienda"
         />
 
+        <report
+            string="Carta Notarial"
+            id="report_carta_notarial"
+            model="trova.vivienda.titu"
+            report_type="qweb-pdf"
+            name="trova_vivienda.carta_notarial"
+            file="trova_vivienda.carta_notarial"
+        />
 
 
         

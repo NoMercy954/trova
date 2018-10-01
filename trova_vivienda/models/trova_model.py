@@ -78,6 +78,9 @@ class TrovaVivienda(models.Model):
 	prototipo = fields.Char(string='Prototipo')
 	fracc = fields.Char(string='Fraccionamiento')
 	prop_vivienda = fields.Many2one('res.partner',string='Propietario de la Vivienda')
+	acredor_hipotecario = fields.Char(string='Acredor Hipotecario')
+	rfc_acredor = fields.Char(string='RFC')
+	antiguedad = fields.Integer(string="Antiguedad de la Vivienda")
 
 
 
@@ -172,13 +175,16 @@ class TrovaVivTitu(models.Model):
 	fecha_inicio_pago_enganche = fields.Date(string='Fecha de Inicio de pago enganche')
 	subsidio = fields.Float(string='Subsidio')
 	monto_cuenta_vivienda = fields.Float(string='Monto de la cuenta de Vivienda')
-	acredor_hipotecario = fields.Boolean(string='Acredor Hipotecario')
-	nombre_acredor = fields.Char(string='Nombre del Acredor')
-	rfc_acredor = fields.Char(string='RFC')
 	destino_credito = fields.Selection([('compra','Compra Vivienda'),('contruir','Construir Vivienda'),
 										('mejorar','Ampliar, Remodelar o Mejorar tu vivienda'),('hipoteca','Pagar la Hipoteda de tu vivienda')],)
 
-
+	modelo_escritura = fields.Char(string='Modelo de Escritura')                
+	pago_paculio = fields.Float(string='Pago Paculio')
+	pago_acredor = fields.Float(string='Pago acredor')
+	clabe_acredor = fields.Integer(string='CLABE bancaria del acredor')
+	nombre_banco_acredor = fields.Char(string="Nombre del Banco")
+	importe_hipoteca = fields.Float(string="Importe de Hipoteca")
+	
 	@api.depends('precio_mejoras','precio_vivienda')
 	def _total_vivienda(self):
 	    self.total_pagar = (float(self.precio_vivienda))+(float(self.precio_mejoras))

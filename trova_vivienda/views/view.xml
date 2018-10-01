@@ -32,6 +32,7 @@
                 <field name="paquete"/>
                 <field name="subasta" />
                 <field name="prototipo"/>
+                <field name="antiguedad" placeholder="Meses"/>
                 <field name="preciocompra" widget="monetary"/>
                 <field name="precioventa" widget="monetary"/>
                 <field name="tipo_venta" />
@@ -62,6 +63,8 @@
                     <field name="m_const"/>
                     <field name="sofol"/>
                     <field name="denominacion"/>
+                    <field name="acredor_hipotecario"/>
+                    <field name="rfc_acredor"/>
                   </group>
                   <group name="group_rigth" string="Mejoras">
                     <field name="piso"/>

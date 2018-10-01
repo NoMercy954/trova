@@ -127,7 +127,7 @@
                                     <td><span t-esc="'{0:.2f}'.format(total_recibir - valor_total)"/></td>
                                 </tr>                                                             
                             </table>
-                            <table align="center">
+                            <table style="align:center;">
                                 <tr>
                                     <td width="20%" style="text-align:center;"><strong>Comision</strong></td>
                                     <td width="20%" style="text-align:center;"><strong>IVA</strong></td>
