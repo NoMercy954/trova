@@ -27,7 +27,7 @@
                                     <br/>
                                     <p style="text-align: justify;">
                                     Acta de Acuerdos que celebran el Sr. (a) <span t-field="o.cliente"/> 
-
+                                    
                                     <br/>
 
                                     Que adquiere la vivienda que se especifica en la parte superior y que para efectos de esta acta se le denominara “CLIENTE” y la empresa <span t-esc="company.name"/> que efectuó y bajo su responsabilidad corrió la reparación, mantenimiento, corrección y acondicionamiento de la misma vivienda, que para el efecto de esta acta denominaremos el “HABILITADOR”. 
