@@ -34,7 +34,7 @@
                                             <span t-field="o.cliente.esque_credito"/><br/>
                                             <span t-field="o.numcredifona"/><br/>
                                             <span t-field="o.subsidio"/><br/>
-                                            <span t-field="o.cliente.monto_cuenta_vivienda"/><br/>
+                                            <span t-field="o.monto_cuenta_vivienda"/><br/>
                                         </td>
                                     </tr>
                                 </table> 
