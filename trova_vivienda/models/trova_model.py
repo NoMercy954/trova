@@ -85,6 +85,7 @@ class TrovaVivienda(models.Model):
 
 
 
+
 	@api.one
 	@api.depends('precioventa')
 	def _get_amount_to_text(self):
@@ -124,7 +125,7 @@ class TrovaVivTitu(models.Model):
 	confirmventa = fields.Char(string='Confirmacion de venta')
 	presupuesto = fields.Many2one('sale.order', string='Presupuestos')
 	asesor = fields.Many2one('res.users',string='Asesor', help='Lista de Asesores')
-	tipocredito = fields.Selection([('tradicional','Tradicional'),('contado','Contado')], string='Confirmacion de venta Tipo de Credito')
+	tipocredito = fields.Selection([('tradicional','Tradicional'),('contado','Contado')], string='Tipo de Credito')
 	observaciones = fields.Selection([('habilitada','Habilitada'),('semihabilitada','Semihabilitada'),('sinhabilitar','Sin Habilitar')],string='Observaciones Vivienda', help='Observaciones')
 	comentariostit = fields.Text(string='Comentarios Titulacion', help='Comentarios sobre la Titulacion')
 	cliente = fields.Many2one('res.partner',string='Nombre del Cliente')
@@ -184,6 +185,7 @@ class TrovaVivTitu(models.Model):
 	clabe_acredor = fields.Integer(string='CLABE bancaria del acredor')
 	nombre_banco_acredor = fields.Char(string="Nombre del Banco")
 	importe_hipoteca = fields.Float(string="Importe de Hipoteca")
+
 	
 	@api.depends('precio_mejoras','precio_vivienda')
 	def _total_vivienda(self):
@@ -224,6 +226,51 @@ class TrovaVivTitu(models.Model):
 			self.avalcat = self.folio.avalcat_precio
 			self.aca = self.folio.aca_precio
 
+	@api.multi
+	def _default_account(self):
+		journal = self.env['account.journal'].search([('type', '=', 'sale')], limit=1)
+		return journal.default_credit_account_id.id
+
+	def action_titu_invoice_create(self):
+		invoice_obj = self.env["account.invoice"]
+		invoice_line_obj = self.env["account.invoice.line"]
+
+		for vivienda in self:
+			# Create Invoice
+			if vivienda.folio and vivienda.presupuesto:
+				curr_invoice = {
+					'partner_id': vivienda.cliente.id,
+					'account_id': vivienda.cliente.property_account_receivable_id.id,
+					'state': 'draft',
+					'type': 'out_invoice',
+					'date_invoice': datetime.now(),
+					'origin': vivienda.name,
+					'target': 'new',
+				}
+
+				inv_ids = invoice_obj.create(curr_invoice)
+				inv_id = inv_ids.id
+
+				if inv_ids:
+					prd_account_id = self._default_account()
+					# Create Invoice line
+					curr_invoice_line = {
+						'name': "Cargo por Vivienda con Folio Real: " + str(vivienda.folio.name),
+						'price_unit': vivienda.total_pagar or 0,
+						'quantity': 1.0,
+						'account_id': prd_account_id,
+						'invoice_id': inv_id,
+					}
+
+					inv_line_ids = invoice_line_obj.create(curr_invoice_line)
+		return {
+			'domain': "[('id','=', " + str(inv_id) + ")]",
+			'name': 'vivienda Invoice',
+			'view_type': 'form',
+			'view_mode': 'tree,form',
+			'res_model': 'account.invoice',
+			'type': 'ir.actions.act_window'
+		}
 
 class TrovaVivDesarollo(models.Model):
 	_name = 'trova.vivienda.desa'
@@ -435,6 +482,17 @@ class TrovaVivSale(models.Model):
 	"""docstring for TrovaTitu"""
 	_inherit = 'sale.order'
 
+
+	curp_doc = fields.Binary(string='Curp')
+	ine_doc = fields.Binary(string='INE')
+	acta_doc = fields.Binary(string='Acta de Nacimiento')
+	acta_esposa_doc = fields.Binary(string='Acta de Nacimiento Esposa(o)', help="En caso de estar casado adjuntar acta de la esposa(o)")
+	acta_matrimonio_doc = fields.Binary(string='Acta de Matrimonio')
+	rfc_doc = fields.Binary(string='RFC')
+	bansefi_doc = fields.Binary(string='BANSEFI')
+	precalificacion_doc = fields.Binary(string='Pre Calificacion')
+	constancia_taller_doc = fields.Binary(string='Constancia de Taller')
+	comp_domicilio_doc = fields.Binary(string='Comprobante de Domicilio')
 	vivienda = fields.Many2one('trova.vivienda', string="Folio Real Vivienda")
 	etapas = fields.Selection([('Disponible','Disponible'),
 							   ('Invadida','Invadida'),
@@ -442,11 +500,20 @@ class TrovaVivSale(models.Model):
 							   ('Porfirma','Por firmar'),
 							   ('Firmada','Firmada'),
 							   ('Cancelada','Cancelada')], help='Status',index=True, default='Disponible')
+	direccion = fields.Char(string='Direccion',compute="direccion_func")
+
+
 
 	@api.onchange('vivienda')
 	def onchange_vivienda(self):
 		if self.vivienda:
 			self.etapas = self.vivienda.etapas
+
+	@api.depends('vivienda')
+	def direccion_func(self):
+		if self.vivienda:
+			self.direccion = (self.vivienda.calle or '')+' Col. '+(self.vivienda.calle2 or '')+' '+(str(self.vivienda.municipio.name) or '')+' '+(str(self.vivienda.estado.name) or '')
+
 
 class TrovaVivClientes(models.Model):
 	_inherit = 'res.partner'
@@ -563,6 +630,6 @@ class TrovaGarantias(models.Model):
 	instal_hidraulica = fields.Boolean(string='Instalacion Hidraulica')
 	instal_sanitaria = fields.Boolean(string='Instalacion Sanitaria')
 	acabados = fields.Boolean(string='Acabados')
-	impermeable = fields.Boolean(string="Impermeabilizante")
+	impermeable = fields.Boolean(string='Impermeabilizante')
 	albañilería = fields.Boolean(string='Albañilería')
 

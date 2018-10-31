@@ -18,11 +18,11 @@
     								Enganche total: <span t-field="o.enganche_vivienda"/> pesos, apartado: <span t-field="o.apartado_vivienda"/> pesos por concepto de depósito en garantía.                       		
                             	</p>
                             	<p aling="justify">
-                            		<strong>EN CASO DE OPERACIONES DE CONTADO: </strong>el saldo del enganche, equivalente a: <span t-field="o.enganche_vivienda"/> pesos, se hara mediante un pago en la fecha <span t-field="o.fecha_pago_enganche_contado"/>.
+                            		<strong>EN CASO DE OPERACIONES DE CONTADO: </strong>el saldo del enganche, equivalente a: <span t-field="o.enganche_vivienda"/> pesos, se hara mediante un pago en la fecha <span t-field="o.fecha_pago_enganche_contado"/>.<br/>
 
-                                    <strong>EN CASO DE QUE EL ENGANCHE SE PAGUE A CREDITO: </strong> Pagare un abono de: <span t-field="o.abono_vivienda"/> ala fehca: <span t-field="o.fecha_limite_abono"/>. El saldo del enganche, lo pagare en: <span t-field="o.cantidad_mensualidad"/> mensualidades iguales de: <span t-field="o.mensaulidad_enganche"/> pesos a partir del: <span t-field="o.fecha_inicio_pago_enganche"/>.
+                                    <strong>EN CASO DE QUE EL ENGANCHE SE PAGUE A CREDITO: </strong> Pagare un abono de: <span t-field="o.abono_vivienda"/> ala fehca: <span t-field="o.fecha_limite_abono"/>. El saldo del enganche, lo pagare en: <span t-field="o.cantidad_mensualidad"/> mensualidades iguales de: <span t-field="o.mensaulidad_enganche"/> pesos a partir del: <span t-field="o.fecha_inicio_pago_enganche"/>.<br/>
 
-                                    <strong>EN AMBOS CASO: </strong>el saldo de la casa equivale a: <span t-field="o.total_pagar"/> pesos, se pagara en forma: <span t-if="o.pago_contado == True" >De Contdo</span><span t-if="o.pago_credito == True">a Credito</span> en la siguiente fecha: <span t-if="o.pago_contado == True" ><span t-field="o.fecha_pago_enganche_contado"/></span><span t-if="o.pago_credito == True">despues de las <span t-field="o.cantidad_mensualidad"/> Mensualidades comenzando la fecha <span t-field="o.fecha_inicio_pago_enganche"/></span>
+                                    <strong>EN AMBOS CASO: </strong>el saldo de la casa equivale a: <span t-field="o.total_pagar"/> pesos, se pagara en forma: <span t-if="o.pago_contado == True" >De Contdo</span><span t-if="o.pago_credito == True">a Credito</span> en la siguiente fecha: <span t-if="o.pago_contado == True" ><span t-field="o.fecha_pago_enganche_contado"/></span><span t-if="o.pago_credito == True">despues de las <span t-field="o.cantidad_mensualidad"/> Mensualidades comenzando la fecha <span t-field="o.fecha_inicio_pago_enganche"/></span><br/>
 
                                     <table>
                                         <tr>
@@ -52,7 +52,8 @@
                                     Asi mismo este apartado tendra vigencia de ocho dias apartir de la fecha mencionada.
                                     <br/>
                                     En Caso de no ser escriturada su casa por causa imputables a problemas de la autorizacion de su credito o por otrasos en los pagos de su encanghe o pago total de su compra el valor de la vivienda sera actualzido por el que prevalezca a el dia de la escrituracion de la casa.
-                                </p>
+                                </p><br/>
+
                             <table align="center">
                                 <tr>
                                     <td style="text-align:center;">

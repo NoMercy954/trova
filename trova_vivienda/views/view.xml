@@ -47,7 +47,7 @@
                 <field name="mz_lote"/>
                 <field name="cp" />
                 <field name="estado"/> 
-                <field name="municipio"/> 
+                <field name="municipio"/>
             </group>                        
         </group>
         
@@ -196,8 +196,30 @@
             <field name="inherit_id" ref="sale.view_order_form" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='validity_date']" position="before">
-                  <field name="vivienda"/>
+                  <field name="vivienda" domain="[('etapas','!=','Firmada')]"/>
+                  <field name="direccion" readonly="1"/>
                   <field name="etapas" invisible="1"/>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+                    <page name="documentos" string="Adjuntos">
+                            <group name="group"> 
+                                <group name="group_left">
+                                  <field name="curp_doc" required="1"/>
+                                  <field name="ine_doc" required="1"/>
+                                  <field name="acta_doc" required="1"/>
+                                  <field name="acta_esposa_doc"/>
+                                  <field name="acta_matrimonio_doc"/>
+                                </group>
+                                <group name="group_right">
+                                  <field name="rfc_doc" required="1"/>
+                                  <field name="bansefi_doc" required="1"/>
+                                  <field name="precalificacion_doc" required="1"/>
+                                  <field name="constancia_taller_doc" required="1"/>
+                                  <field name="comp_domicilio_doc" required="1"/>
+                                </group>
+                            </group>
+                    </page>        
+
                 </xpath>
             </field>
 </record>
@@ -294,21 +316,7 @@
                                 </group>                     
                             </group>
                     </page>
-
-                    <page name="beneficiarios" string="Beneficiarios">
-                            <group name="group"> 
-                                <group name="group_left">
-                                    <field name="name_benef1"/>
-                                    <field name="porcent_benf1"/>
-                                    <field name="prentesco1"/>
-                                </group>
-                                <group name="group_rigth">
-                                    <field name="name_benef2"/> 
-                                    <field name="porcent_benf2"/>
-                                    <field name="prentesco2"/>
-                                </group>                     
-                            </group>
-                    </page>                    
+                   
                 </xpath>
                 </field>          
   </record>

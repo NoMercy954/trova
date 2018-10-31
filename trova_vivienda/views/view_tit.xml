@@ -18,7 +18,9 @@
                 <field name="model">trova.vivienda.titu</field>
                 <field name="arch" type="xml">
                     <form string ="Formulario de datos de Titulacion" version="9.0">
-                       <header><field name="etapas" widget="statusbar" clickable="1" /></header>
+                       <header><field name="etapas" widget="statusbar" clickable="1" />
+                            <button confirm="Estas seguro de crear la factura de esta titulacion?" name="action_titu_invoice_create" string="Factura Titulacion" type="object" class="oe_highlight"/>
+                        </header>
                     <sheet> 
                             <div>
                                 <h1>
